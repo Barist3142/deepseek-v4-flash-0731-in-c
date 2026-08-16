@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y clang libomp-dev make
       - name: Build and test (strict, Clang)
-        run: make CC=clang strict
+        run: make CC=clang ARCH= strict
 
   macos-clang:
     name: macOS / Apple Clang + OpenMP tests
