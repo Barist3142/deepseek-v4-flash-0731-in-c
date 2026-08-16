@@ -1,0 +1,56 @@
+# build output
+build/
+bin/
+*.o
+*.a
+*.so
+*.exe
+compile_commands.json
+
+# Model weights and derived data. Hundreds of gigabytes; never commit these.
+# The patterns are broad on purpose; test fixtures are re-included at the bottom.
+/model/
+*.safetensors
+
+# local scratch (debug helpers used while developing this port)
+/.wsl/
+
+# Run artifacts. Anchored to the repository root so generated profiles stay local.
+/*.log
+/expert_trace.bin
+/expert_hist.json
+/st_index.json
+/st_values.json
+/out/
+/results/
+
+# credentials
+hf_token*
+*.pem
+*_key
+*_key.pub
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ruff_cache/
+.pytest_cache/
+
+# editors / os
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*~
+
+# ----------------------------------------------------------------------------------
+# Test fixtures are PART OF THE REPOSITORY and must survive every rule above.
+#
+# `make test` is this project's correctness gate, and it deliberately runs without model
+# weights, but only if the fixtures are present in the clone. Without these re-includes
+# the broad safetensors rule would silently drop the synthetic reader and tiny-model
+# shards, leaving a fresh clone unable to run its own test suite.
+!tests/fixtures/
+!tests/fixtures/**

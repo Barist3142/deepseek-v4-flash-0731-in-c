@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ubuntu-gcc:
+    name: Ubuntu / GCC strict + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc make
+      - name: Build and test (strict)
+        run: make strict
+
+  ubuntu-clang:
+    name: Ubuntu / Clang strict + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang make
+      - name: Build and test (strict, Clang)
+        run: make CC=clang strict
+
+  macos-clang:
+    name: macOS / Apple Clang + OpenMP tests
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OpenMP runtime
+        run: brew install libomp
+      - name: Build and test
+        run: make test
+
+  cmake-ctest:
+    name: CMake + CTest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc cmake
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build -j
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  sanitizers:
+    name: ASan + UBSan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc make
+      - name: Build and test under ASan+UBSan
+        run: make asan
+
+  tokenizer-parity:
+    name: Tokenizer parity vs tokenizers==0.22.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc make
+          pip install tokenizers==0.22.0
+      - name: Build
+        run: make -j bin/dsv4_tok_cli
+      - name: Fetch official tokenizer.json (6 MB)
+        run: |
+          mkdir -p /tmp/dsv4-model
+          curl -sfL --max-time 120 -o /tmp/dsv4-model/tokenizer.json \
+            "https://www.modelscope.cn/models/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/f981a343464c25f82b901e5882716b3b2fa514de/tokenizer.json"
+      - name: Run parity
+        run: DSV4_MODEL_DIR=/tmp/dsv4-model python3 tools/test_dsv4_tokenizer_parity.py /tmp/dsv4-model
+
+  shell:
+    name: Shell syntax + manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Shell syntax check
+        run: |
+          for f in scripts/*.sh examples/*.sh; do
+            bash -n "$f"
+            shellcheck "$f"
+          done
+      - name: Manifest check (48 lines, 64-bit hashes, total bytes)
+        run: python3 tools/check_manifest.py
+
+  download-resume:
+    name: Download resume integration test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the 64 KiB flaky-server resume test
+        run: tests/integration/test_download_resume.sh
