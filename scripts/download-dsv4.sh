@@ -125,7 +125,8 @@ download_one() {
         fi
         last=$cur
 
-        if ! curl -sfL --connect-timeout 30 --max-time 3600 -C - \
+        if ! curl -sfL --connect-timeout 30 --max-time 3600 \
+                 --speed-limit 1 --speed-time "$STALL_LIMIT_S" -C - \
                  -o "$file" "${BASE}/${name}"; then
             echo "[dsv4] ${name}: curl failed at ${cur} bytes; retrying"
             sleep 1
@@ -142,7 +143,7 @@ download_one() {
     done
 }
 export -f download_one
-export MODEL_DIR BASE
+export MODEL_DIR BASE STALL_LIMIT_S
 
 echo "[dsv4] downloading 48 shards with ${JOBS} concurrent worker(s), ${REMAINING_BYTES} bytes remaining"
 # shellcheck disable=SC2016

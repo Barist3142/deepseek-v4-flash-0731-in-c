@@ -478,9 +478,11 @@ int64_t k3_st_read_aligned(const K3St *s, int shard, int64_t off, int64_t nbytes
             if (r <= 0) return got;
             got += r;
         }
+#ifdef POSIX_FADV_DONTNEED
         if (force_buffered)
             (void)posix_fadvise(s->fd[shard], (off_t)off, (off_t)nbytes,
                                 POSIX_FADV_DONTNEED);
+#endif
         return got;
     }
 
