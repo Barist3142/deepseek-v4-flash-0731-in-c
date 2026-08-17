@@ -1,9 +1,14 @@
-# DeepSeek-V4-Flash-0731 in C
+# DeepSeek-V4-Flash-0731 纯 C CPU 推理引擎
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-**在笔记本 CPU 上直接使用 DeepSeek-V4-Flash-0731 原生权重进行推理。** 一个
-纯 C 语言（C99）大模型推理引擎，无需 GPU、CUDA、PyTorch，也无需转换权重。
+[![CI](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml)
+[![Release](https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases)
+[![License](https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c)](LICENSE)
+
+**在笔记本单颗 CPU 上本地运行 DeepSeek-V4-Flash-0731 原生权重。** 一个用
+纯 C 语言（C99）编写的本地大模型 MoE 推理引擎，无需 GPU、CUDA、PyTorch，
+也无需转换权重。
 
 **参数量284B-A13B · 最低 8 GB CPU内存可运行 · 32 GB内存x86机器的最优耗时
 TPOT仅0.892 s/token（1.12 token/s）。**
@@ -121,10 +126,11 @@ token 完全一致。长 prefill 的双缓冲调整也做了冷页对照：17-to
 
 ## 我们项目所实现的推理优化
 
-本项目的工程工作分为三类：直接复用 kimi-k3-in-c 的代码、基于其思路完成
-DeepSeek-V4-Flash-0731 适配，以及本项目原创的推理优化。三类工作的完整清单、
-来源边界和代码位置见 [优化与来源说明](docs/OPTIMIZATIONS.zh-CN.md)。下面只列
-第三类。
+本项目的工程工作分为三类：直接复用
+[kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c) 的代码、基于其思路
+完成 DeepSeek-V4-Flash-0731 适配，以及本项目原创的推理优化。三类工作的完整
+清单、来源边界和代码位置见 [优化与来源说明](docs/OPTIMIZATIONS.zh-CN.md)。下面
+只列第三类。
 
 - **分层批处理（Layer-major batching）。** 一层权重只加载一次，按原顺序算完
   整段输入或验证 batch，再进入下一层。
@@ -187,8 +193,9 @@ make test
 
 本项目基于
 [FareedKhan-dev/kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c)。
-kimi-k3-in-c 证明了冷 MoE 专家可以从磁盘流式加载，使完整权重无需全部常驻
-CPU内存；本项目复用或改编的文件已在 [NOTICE](NOTICE) 中逐项列明。
+[kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c) 证明了冷 MoE 专家
+可以从磁盘流式加载，使完整权重无需全部常驻 CPU内存；本项目复用或改编的文件
+已在 [NOTICE](NOTICE) 中逐项列明。
 
 DeepSeek-V4-Flash-0731 权重由 DeepSeek-AI 发布于
 [ModelScope](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-V4-Flash-0731)。

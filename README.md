@@ -1,10 +1,14 @@
-# DeepSeek-V4-Flash-0731 in C
+# DeepSeek-V4-Flash-0731 CPU Inference in C
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-**Run DeepSeek-V4-Flash-0731 inference directly on a laptop CPU with the native
-checkpoint.** One pure C LLM inference engine, written in portable C99, with no
-GPU, CUDA, PyTorch or weight conversion.
+[![CI](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml)
+[![Release](https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases)
+[![License](https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c)](LICENSE)
+
+**Run the native DeepSeek-V4-Flash-0731 checkpoint locally on a single laptop
+CPU.** A pure C local LLM and MoE inference engine, written in portable C99,
+with no GPU, CUDA, PyTorch or weight conversion.
 
 **284B-A13B parameters · runs with 8 GB of system RAM · best TPOT on a 32 GB
 x86 laptop: only 0.892 s/token (1.12 token/s).**
@@ -130,9 +134,10 @@ conditions, controlled comparisons and rejected experiments.
 ## Inference Optimizations Implemented in This Project
 
 The engineering in this repository falls into three groups: code reused from
-kimi-k3-in-c, DeepSeek-V4-Flash-0731 adaptations of its ideas, and original
-inference optimizations added here. The complete classification, provenance
-boundary and code locations are in
+[kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c),
+DeepSeek-V4-Flash-0731 adaptations of its ideas, and original inference
+optimizations added here. The complete classification, provenance boundary and
+code locations are in
 [Optimizations and Provenance](docs/OPTIMIZATIONS.md). Only the third group is
 listed below.
 
@@ -208,9 +213,10 @@ The code is licensed under Apache License 2.0. See [LICENSE](LICENSE) and
 
 This project is based on
 [FareedKhan-dev/kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c).
-kimi-k3-in-c demonstrated that cold MoE experts can stream from disk so the
-complete checkpoint does not need to reside in system RAM. Files reused or
-adapted by this project are listed individually in [NOTICE](NOTICE).
+[kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c) demonstrated that
+cold MoE experts can stream from disk so the complete checkpoint does not need
+to reside in system RAM. Files reused or adapted by this project are listed
+individually in [NOTICE](NOTICE).
 
 The DeepSeek-V4-Flash-0731 checkpoint is published by DeepSeek-AI on
 [ModelScope](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-V4-Flash-0731).
