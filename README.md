@@ -1,17 +1,30 @@
-# DeepSeek-V4-Flash-0731 CPU Inference in C
+<h1 align="center">DeepSeek-V4-Flash-0731 CPU Inference in C</h1>
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+<p align="center">
+  <strong>Run the native DeepSeek-V4-Flash-0731 checkpoint locally on a single laptop CPU.</strong><br>
+  A pure C local LLM and MoE inference engine, written in portable C99, with no GPU, CUDA, PyTorch or weight conversion.
+</p>
 
-[![CI](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml)
-[![Release](https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases)
-[![License](https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c)](LICENSE)
+<table align="center">
+  <tr>
+    <td align="center"><strong>284B-A13B</strong><br>parameters</td>
+    <td align="center"><strong>8 GB</strong><br>minimum system RAM</td>
+    <td align="center"><strong>0.892 s/token</strong><br>best TPOT on a 32 GB x86 laptop<br>1.12 token/s</td>
+  </tr>
+</table>
 
-**Run the native DeepSeek-V4-Flash-0731 checkpoint locally on a single laptop
-CPU.** A pure C local LLM and MoE inference engine, written in portable C99,
-with no GPU, CUDA, PyTorch or weight conversion.
+<p align="center">
+  <a href="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml"><img src="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases"><img src="https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c" alt="License"></a>
+</p>
 
-**284B-A13B parameters · runs with 8 GB of system RAM · best TPOT on a 32 GB
-x86 laptop: only 0.892 s/token (1.12 token/s).**
+<p align="center">
+  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a><br>
+  <a href="#quick-start"><strong>Quick start</strong></a> ·
+  <a href="#measured-performance">Performance</a> ·
+  <a href="#inference-optimizations-implemented-in-this-project">Inference optimizations</a>
+</p>
 
 ## Quick start
 

@@ -1,17 +1,30 @@
-# DeepSeek-V4-Flash-0731 纯 C CPU 推理引擎
+<h1 align="center">DeepSeek-V4-Flash-0731 纯 C CPU 推理引擎</h1>
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+<p align="center">
+  <strong>在笔记本单颗 CPU 上本地运行 DeepSeek-V4-Flash-0731 原生权重。</strong><br>
+  一个用纯 C 语言（C99）编写的本地大模型 MoE 推理引擎，无需 GPU、CUDA、PyTorch，也无需转换权重。
+</p>
 
-[![CI](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml)
-[![Release](https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c)](https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases)
-[![License](https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c)](LICENSE)
+<table align="center">
+  <tr>
+    <td align="center"><strong>284B-A13B</strong><br>参数量</td>
+    <td align="center"><strong>8 GB</strong><br>最低 CPU内存可运行</td>
+    <td align="center"><strong>0.892 s/token</strong><br>32 GB内存x86机器的最优 TPOT<br>1.12 token/s</td>
+  </tr>
+</table>
 
-**在笔记本单颗 CPU 上本地运行 DeepSeek-V4-Flash-0731 原生权重。** 一个用
-纯 C 语言（C99）编写的本地大模型 MoE 推理引擎，无需 GPU、CUDA、PyTorch，
-也无需转换权重。
+<p align="center">
+  <a href="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml"><img src="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases"><img src="https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c" alt="License"></a>
+</p>
 
-**参数量284B-A13B · 最低 8 GB CPU内存可运行 · 32 GB内存x86机器的最优耗时
-TPOT仅0.892 s/token（1.12 token/s）。**
+<p align="center">
+  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a><br>
+  <a href="#快速开始"><strong>快速开始</strong></a> ·
+  <a href="#实测性能">实测性能</a> ·
+  <a href="#我们项目所实现的推理优化">推理优化</a>
+</p>
 
 ## 快速开始
 
